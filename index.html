@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        #head > div {
+            display: grid;
+            justify-content: center;
+            justify-items: center;
+            height: 50px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            overflow: hidden;
+            background-color: white;
+            position: fixed;
+            top: 0; 
+            width: 100%; 
+        }
+        #card{
+            width:25%;
+            height: auto;
+            border: 1px solid transparent;
+            margin: auto;
+            margin-top: 100px;
+            border-radius: 20px;
+            background-color: #fe5c75;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            
+        }
+        #card>form{
+            display: grid;
+            margin-left: 40px;
+            margin-right: 40px;
+          
+            
+        }
+        #card>form>h3{
+            margin: auto;
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        #card>form>p{
+            font-size: 13px;
+        }
+        input[type=submit]{
+            background-color: rgba(190, 190, 206, 0.514);
+            width:40%;
+            margin: auto;
+            cursor: pointer;
+            padding: 4px 4px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            color:black;
+            font-size:small;
+
+        }
+        input[type=submit]:hover{
+            color:white;
+            background-color: rgb(46, 152, 219);
+        }
+input{
+    height:30px;
+   
+    border-color: transparent;
+}
+    
+        
+    </style>
+</head>
+<body>
+    <div id="head">
+        <div>
+          <img
+            src="https://cdn2.stylecraze.com/wp-content/themes/buddyboss-child/images/sc-logo.png"
+            alt=""
+          />
+        </div>
+      </div>
+         
+    <div id="card">
+        <form>
+            <h3>Sign Up</h3>
+            <label>Full Name</label><br />
+            <input id="name" type="text" placeholder="Enter your full name" /><br />
+            <label>Email</label><br />
+            <input id="email" type="email" placeholder="Enter email" /><br />
+            <label>Password</label><br />
+            <input id="pass" type="password" placeholder="Enter password" /><br />
+            <p>By signing up, I accept the Masai School <a href="https://masaischool.com/terms/">Terms of Service</a> acknowledge the <a href="https://masaischool.com/privacy/">Privacy Policy</a></p>
+            <input id="signup" type="submit" name="signup" value="signup"/ >
+            <p>Already have an account? <a href="login.html">Sign In</a></p>
+        </form>
+        
+    </div>
+</body>
+</html>
+<script>
+let form=document.querySelector("form");
+    let signUpData=JSON.parse(localStorage.getItem("signUpData"))||[];
+    form.addEventListener("submit",function(event){
+        event.preventDefault();
+        let data={
+             name:form.name.value,
+             email:form.email.value,
+             password:form.pass.value,
+             
+        }
+        
+        // if return true means you can signup if return false means you can not signup
+        if(checkEmails(data.email)===true){
+            signUpData.push(data);
+            localStorage.setItem("signUpData",JSON.stringify(signUpData));
+            alert("Congratulation!!! Your Account is Created You Can Log In Now");
+            window.location.href="login.html";
+        }else{
+            alert("Account Already Exist Please Log In");
+            window.location.href="index.html";
+        }
+    })
+    
+
+    // I check email for validation (account already exist or not)
+    function checkEmails(email){
+        let filtered=signUpData.filter(function(elem){
+            return email===elem.email;
+        })
+        if(filtered.length>0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    
+</script>
